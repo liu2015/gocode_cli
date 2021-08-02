@@ -56,7 +56,7 @@ func main() {
 
 	// os.Open("text.txt")
 
-	container := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3, l4)
+	container := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3)
 	mywin.SetContent(container)
 	mywin.Resize(fyne.NewSize(400, 700))
 
