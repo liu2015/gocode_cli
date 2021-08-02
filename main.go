@@ -50,6 +50,8 @@ func main() {
 		txttest, err := os.Create("text.txt")
 		io.Copy(txttest, resp.Body)
 
+		txttest.Close()
+
 	})
 
 	// os.Open("text.txt")
