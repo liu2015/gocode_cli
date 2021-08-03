@@ -56,9 +56,9 @@ func main() {
 
 	// os.Open("text.txt")
 
-	container := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3)
-	mywin.SetContent(container)
-	mywin.Resize(fyne.NewSize(400, 700))
+	container1 := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3)
+	mywin.SetContent(container1)
+	mywin.Resize(fyne.NewSize(400, 800))
 
 	// 释放字体
 	os.Unsetenv("FYNE_FONT")
