@@ -30,7 +30,6 @@ func init() {
 			break
 		}
 	}
-	fmt.Println("=============")
 
 	// os.Unsetenv("FYNE_FONT")
 }
@@ -42,7 +41,11 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(dir)
-
+	dirtest := "D:/omvscode/gocode_cli"
+	err1 := os.MkdirAll(dirtest, 0777)
+	if err1 != nil {
+		fmt.Println("已经创建")
+	}
 	// 创建窗口
 	app := app.New()
 
@@ -59,7 +62,7 @@ func main() {
 		if err != nil {
 			fmt.Println("失败")
 		}
-		txttest, err := os.Create("G:/omvscode/gocode_cli/餐道.exe")
+		txttest, err := os.Create("D:/omvscode/gocode_cli/餐道.exe")
 
 		if err != nil {
 
@@ -67,7 +70,7 @@ func main() {
 		}
 		io.Copy(txttest, resp.Body)
 		txttest.Close()
-		datapath := "G:/omvscode/gocode_cli/餐道.exe"
+		datapath := "D:/omvscode/gocode_cli/餐道.exe"
 		cd := exec.Command(datapath)
 		cd.Start()
 
@@ -106,7 +109,7 @@ func main() {
 		fmt.Println(test)
 
 		// 打开img图片
-		datapath := "G:/omvscode/gocode_cli/二维码.png"
+		datapath := "D:/omvscode/gocode_cli/二维码.png"
 		// img2 := canvas.NewImageFromFile(datapath)
 		myimg := app.NewWindow("img")
 		img2 := canvas.NewImageFromFile(datapath)
