@@ -101,10 +101,8 @@ func main() {
 		err := lib.LibUp()
 
 		if err {
-			// msg.Dialog(mywin)
-			fmt.Println("弹窗")
-			// mywin1 := app.NewWindow("msg")
-			msg.Dialog(mywin)
+
+			msg.Dialog("运行成功", mywin)
 
 		}
 
