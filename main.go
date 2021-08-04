@@ -10,6 +10,7 @@ import (
 
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
+	"fyne.io/fyne/canvas"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 	"github.com/darjun/go-daily-lib/fyne/lib"
@@ -90,7 +91,27 @@ func main() {
 	libimg1 := widget.NewLabel("4,获得扫码枪设置二维码")
 	libimg2 := widget.NewLabel("4,若你发现扫码抢不能自动回车，请点击运行，然后打开图片")
 	libimg3 := widget.NewButton("4,运行", func() {
-		lib.LibImg()
+		test, err := lib.LibImg()
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println(test)
+
+		// 打开img图片
+		datapath := "G:/omvscode/gocode_cli/二维码.png"
+		// img2 := canvas.NewImageFromFile(datapath)
+		myimg := app.NewWindow("img")
+		img2 := canvas.NewImageFromFile(datapath)
+		img2.FillMode = canvas.ImageFillOriginal
+		containerimg := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), img2)
+		myimg.SetContent(containerimg)
+
+		myimg.Resize(fyne.NewSize(750, 380))
+
+		myimg.Show()
+		// cd := exec.Command(datapath)
+		// cd.Start()
+		// fmt.Println("图片打开失败")
 	})
 
 	container1 := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3, clear1, clear2, clear3, libup1, libup2, libup3, libimg1, libimg2, libimg3)
