@@ -16,6 +16,7 @@ import (
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 	"github.com/darjun/go-daily-lib/fyne/lib"
+	"github.com/darjun/go-daily-lib/fyne/msg"
 	"github.com/flopp/go-findfont"
 )
 
@@ -86,6 +87,7 @@ func main() {
 	// clear3 := widget.NewButton("运行")
 	clear3 := widget.NewButton("2,运行", func() {
 		// 执行订单清理业务
+
 		lib.LibClear()
 	})
 
@@ -95,7 +97,17 @@ func main() {
 	libup2 := widget.NewLabel("3,一个动作，三个程序启动")
 
 	libup3 := widget.NewButton("3，运行", func() {
-		lib.LibUp()
+		// 请求 店务80端口是否正常
+		err := lib.LibUp()
+
+		if err {
+			// msg.Dialog(mywin)
+			fmt.Println("弹窗")
+			// mywin1 := app.NewWindow("msg")
+			msg.Dialog(mywin)
+
+		}
+
 	})
 
 	// 获得扫码枪二维码图片

@@ -1,8 +1,18 @@
 package lib
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func LibUp() {
+func LibUp() bool {
 
 	fmt.Println("一键启动三个程序")
+
+	err := LibPing()
+
+	if err {
+		fmt.Println(err)
+	}
+	return err
+
 }
