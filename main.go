@@ -5,12 +5,14 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"os/exec"
 	"strings"
 
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
+	"github.com/darjun/go-daily-lib/fyne/lib"
 	"github.com/flopp/go-findfont"
 )
 
@@ -36,27 +38,62 @@ func main() {
 
 	app := app.New()
 
+	// zt := "等待执行"
+
 	mywin := app.NewWindow("周黑鸭pos工具集")
-	mywin.SetContent(widget.NewLabel("门店编号：   \n"))
 
-	l1 := widget.NewLabel("门店编号：")
-	l2 := widget.NewLabel("脚本介绍：这是下载一个餐道程序")
-	l3 := widget.NewButton("运行", func() {
+	l1 := widget.NewLabel("1，门店编号：")
+	// l11 := widget.NewLabel(*zt)
+	l2 := widget.NewLabel("1，脚本介绍：这是下载一个餐道程序")
+	l3 := widget.NewButton("1，运行", func() {
 
-		resp, err := http.Get("https://www.baidu.com/")
+		resp, err := http.Get("http://localhost:8200/pub_upload/2021-08-04/cda2jmgbav1sc5vfjs.exe")
 		if err != nil {
 			fmt.Println("失败")
 		}
-		txttest, err := os.Create("text.txt")
-		io.Copy(txttest, resp.Body)
+		txttest, err := os.Create("餐道.exe")
+		if err != nil {
 
+			fmt.Println("报错")
+		}
+		io.Copy(txttest, resp.Body)
 		txttest.Close()
+		datapath := "G:/omvscode/gocode_cli/餐道.exe"
+		cd := exec.Command(datapath)
+		cd.Start()
 
 	})
 
 	// os.Open("text.txt")
 
-	container1 := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3)
+	// 清理不能流水上传问题的脚本
+
+	clear1 := widget.NewLabel("2,一件加速订单未上传")
+	clear2 := widget.NewLabel("2,当有流水未上传的时候，请尝试一下，它会清理本地的带.ini乱码文件")
+
+	// clear3 := widget.NewButton("运行")
+	clear3 := widget.NewButton("2,运行", func() {
+		// 执行订单清理业务
+		lib.LibClear()
+	})
+
+	// 一键启动 餐道，vpn，pos程序
+
+	libup1 := widget.NewLabel("3,一键启动vpn，餐道，pos程序")
+	libup2 := widget.NewLabel("3,一个动作，三个程序启动")
+
+	libup3 := widget.NewButton("3，运行", func() {
+		lib.LibUp()
+	})
+
+	// 获得扫码枪二维码图片
+	libimg1 := widget.NewLabel("4,获得扫码枪设置二维码")
+	libimg2 := widget.NewLabel("4,若你发现扫码抢不能自动回车，请点击运行，然后打开图片")
+	libimg3 := widget.NewButton("4,运行", func() {
+		lib.LibImg()
+	})
+
+	container1 := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3, clear1, clear2, clear3, libup1, libup2, libup3, libimg1, libimg2, libimg3)
 	mywin.SetContent(container1)
 	mywin.Resize(fyne.NewSize(400, 800))
 
