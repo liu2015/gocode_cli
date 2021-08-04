@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 
 	"fyne.io/fyne"
@@ -35,8 +37,13 @@ func init() {
 
 func main() {
 
-	fmt.Println("你好，这是一个运行程序")
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(dir)
 
+	// 创建窗口
 	app := app.New()
 
 	// zt := "等待执行"
@@ -52,7 +59,8 @@ func main() {
 		if err != nil {
 			fmt.Println("失败")
 		}
-		txttest, err := os.Create("餐道.exe")
+		txttest, err := os.Create("G:/omvscode/gocode_cli/餐道.exe")
+
 		if err != nil {
 
 			fmt.Println("报错")

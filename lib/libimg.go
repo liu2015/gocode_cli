@@ -22,7 +22,7 @@ func LibImg() (testing string, err error) {
 	}
 	// resp.Body.Close()
 
-	fie, err := os.Create("二维码.png")
+	fie, err := os.Create("G:/omvscode/gocode_cli/二维码.png")
 	if err != nil {
 		fmt.Println("创建失败")
 	}
