@@ -6,7 +6,7 @@ import (
 
 func LibUp() bool {
 
-	fmt.Println("一键启动三个程序")
+	fmt.Println("检查网络")
 
 	err := LibPing()
 

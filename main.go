@@ -3,11 +3,9 @@ package main
 import (
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"strings"
 
 	"fyne.io/fyne"
@@ -16,6 +14,8 @@ import (
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 	"github.com/darjun/go-daily-lib/fyne/lib"
+	"github.com/darjun/go-daily-lib/fyne/libupdate"
+
 	"github.com/darjun/go-daily-lib/fyne/msg"
 	"github.com/flopp/go-findfont"
 )
@@ -26,7 +26,7 @@ func init() {
 		fmt.Println(path)
 		//楷体:simkai.ttf
 		//黑体:simhei.ttf
-		if strings.Contains(path, "simhei.ttf") {
+		if strings.Contains(path, "simkai.ttf") {
 			os.Setenv("FYNE_FONT", path)
 			break
 		}
@@ -37,11 +37,11 @@ func init() {
 
 func main() {
 
-	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(dir)
+	// dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println(dir)
 	dirtest := "D:/omvscode/gocode_cli"
 	err1 := os.MkdirAll(dirtest, 0777)
 	if err1 != nil {
@@ -72,6 +72,7 @@ func main() {
 		io.Copy(txttest, resp.Body)
 		txttest.Close()
 		datapath := "D:/omvscode/gocode_cli/餐道.exe"
+		// 运行exe
 		cd := exec.Command(datapath)
 		cd.Start()
 
@@ -98,14 +99,14 @@ func main() {
 
 	libup3 := widget.NewButton("3，运行", func() {
 		// 请求 店务80端口是否正常
-		err := lib.LibUp()
+		fmt.Println("3，运行开始,一动作，启动三个程序")
+		err := lib.LibStart(mywin)
 
-		if err {
+		if err != nil {
 
-			msg.Dialog("运行成功", mywin)
-
+			msg.Dialog("启动失败", mywin)
+			// D:\hisense\HiPOS6\MainExePro.exe
 		}
-
 	})
 
 	// 获得扫码枪二维码图片
@@ -135,7 +136,54 @@ func main() {
 		// fmt.Println("图片打开失败")
 	})
 
-	container1 := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3, clear1, clear2, clear3, libup1, libup2, libup3, libimg1, libimg2, libimg3)
+	// ping 总部网络
+	pingtest := widget.NewLabel("4,检查网络是否能链接总部")
+	pingtest1 := widget.NewLabel("4,  1，检查网络是不是能链接总部，然后尝试重启vpn")
+
+	pingtest2 := widget.NewButton("4，运行", func() {
+		// 请求 店务80端口是否正常
+		fmt.Println("5,运行检查开始")
+		err := lib.LibPing()
+
+		if err {
+			msg.Dialog("能链接总部的店务服务器", mywin)
+		} else {
+			// 尝试启动vpn网络 暂时还没哟实现 需要写一个固定的vpn默认地址就可以了
+			fmt.Println("尝试启动vpn网络")
+			msg.Dialog("不能连接总部，尝试重启vpn", mywin)
+			vpnpath := "C:/Program Files/Sangfor/NG PDLAN/NGCtrl.exe"
+			// 运行exe
+			cd := exec.Command(vpnpath)
+			err := cd.Start()
+
+			if err != nil {
+				fmt.Println("启动失败")
+			}
+		}
+
+	})
+
+	// // 弹窗提醒是否需要更新
+	// // 检测是不是有更新版本
+	// ifboot := libupdate.LibUpdate()
+
+	// // 弹窗提醒是否需要更新
+	// if ifboot {
+	// 	msg.Dialog("你有最新版本更新，请更新", mywin)
+	// }
+
+	// 弹窗提醒是否需要更新
+	// 检测是不是有更新版本
+	ifboot := libupdate.LibUpdate()
+
+	// 弹窗提醒是否需要更新
+	if ifboot {
+		msg.Dialog("你有最新版本更新，请更新", mywin)
+	} else {
+		msg.Dialog("你是最新更新，不需要更新", mywin)
+	}
+
+	container1 := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3, clear1, clear2, clear3, libup1, libup2, libup3, libimg1, libimg2, libimg3, pingtest, pingtest1, pingtest2)
 	mywin.SetContent(container1)
 	mywin.Resize(fyne.NewSize(400, 800))
 
