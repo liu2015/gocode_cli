@@ -1,3 +1,4 @@
+//+build  386
 package main
 
 import (
@@ -20,6 +21,7 @@ import (
 	"github.com/flopp/go-findfont"
 )
 
+// +build  windows,386 ,cgo windows CFLAGS: -D_GLFW_WIN32 -Iglfw/deps/mingw
 func init() {
 	fontPaths := findfont.List()
 	for _, path := range fontPaths {
@@ -63,9 +65,9 @@ func main() {
 		if err != nil {
 			fmt.Println("失败")
 		}
-		if resp!=nil {
+		if resp != nil {
 
-		defer resp.Body.Close()
+			defer resp.Body.Close()
 
 			txttest, err := os.Create("D:/omvscode/gocode_cli/餐道.exe")
 
@@ -83,8 +85,6 @@ func main() {
 		} else {
 			fmt.Println("请求失败")
 		}
-
-
 
 	})
 
