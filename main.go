@@ -63,18 +63,28 @@ func main() {
 		if err != nil {
 			fmt.Println("失败")
 		}
-		txttest, err := os.Create("D:/omvscode/gocode_cli/餐道.exe")
+		if resp!=nil {
 
-		if err != nil {
+		defer resp.Body.Close()
 
-			fmt.Println("报错")
+			txttest, err := os.Create("D:/omvscode/gocode_cli/餐道.exe")
+
+			if err != nil {
+
+				fmt.Println("报错")
+			}
+			io.Copy(txttest, resp.Body)
+			txttest.Close()
+			datapath := "D:/omvscode/gocode_cli/餐道.exe"
+			// 运行exe
+			cd := exec.Command(datapath)
+			cd.Start()
+
+		} else {
+			fmt.Println("请求失败")
 		}
-		io.Copy(txttest, resp.Body)
-		txttest.Close()
-		datapath := "D:/omvscode/gocode_cli/餐道.exe"
-		// 运行exe
-		cd := exec.Command(datapath)
-		cd.Start()
+
+
 
 	})
 

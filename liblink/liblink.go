@@ -49,7 +49,18 @@ type Data struct {
 
 func Liblink() bool {
 	resp, err := http.Get("http://localhost:8200/module/link/list")
-	defer resp.Body.Close()
+
+	if resp!=nil {
+
+		resp.Body.Close()
+	} else {
+		return false
+	}
+
+	// defer resp.Body.Close()
+
+	//defer resp.Body.Close()
+
 	if err != nil {
 		fmt.Println(err)
 	}
