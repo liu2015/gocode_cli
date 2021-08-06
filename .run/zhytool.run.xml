@@ -2,7 +2,7 @@
   <configuration default="false" name="zhytool" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="gocode_cli" />
     <working_directory value="$PROJECT_DIR$" />
-    <parameters value="-ldflags &quot;-H windowsgui&quot;" />
+    <go_parameters value="-ldflags &quot;-H windowsgui&quot;" />
     <kind value="PACKAGE" />
     <package value="github.com/darjun/go-daily-lib/fyne" />
     <directory value="$PROJECT_DIR$" />

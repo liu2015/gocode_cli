@@ -64,6 +64,7 @@ func main() {
 		resp, err := http.Get("http://localhost:8200/pub_upload/2021-08-04/cda2jmgbav1sc5vfjs.exe")
 		if err != nil {
 			fmt.Println("失败")
+			msg.Dialog("下载餐道失败，请检查vpn是否正常", mywin)
 		}
 		if resp != nil {
 
@@ -114,7 +115,8 @@ func main() {
 
 		if err != nil {
 
-			msg.Dialog("启动失败", mywin)
+			// msg.Dialog("启动失败,请联系管理员", mywin)
+			fmt.Println("程序已经正常执行，依次启动软件，但是可能无法启动软件")
 			// D:\hisense\HiPOS6\MainExePro.exe
 		}
 	})
@@ -137,8 +139,8 @@ func main() {
 		img2.FillMode = canvas.ImageFillOriginal
 		containerimg := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), img2)
 		myimg.SetContent(containerimg)
-
-		myimg.Resize(fyne.NewSize(750, 380))
+		// 这里是显示图片的大小
+		myimg.Resize(fyne.NewSize(750, 376))
 
 		myimg.Show()
 		// cd := exec.Command(datapath)
@@ -161,13 +163,22 @@ func main() {
 			// 尝试启动vpn网络 暂时还没哟实现 需要写一个固定的vpn默认地址就可以了
 			fmt.Println("尝试启动vpn网络")
 			msg.Dialog("不能连接总部，尝试重启vpn", mywin)
+			// 启动vpn网络
 			vpnpath := "C:/Program Files/Sangfor/NG PDLAN/NGCtrl.exe"
-			// 运行exe
-			cd := exec.Command(vpnpath)
-			err := cd.Start()
+			// C:\Program Files\Sangfor\NG PDLAN\NGCtrl.exe
+			// C:\Program Files (x86)\Sangfor\NG PDLAN
+			// 运行exe  cmd := exec.Command("rundll32.exe", "url.dll,FileProtocolHandler", Filename)
+			// cd := exec.Command("cmd.exe", "/C", "start ",vpnpath)
+			// Filename = "\"" + Filename + "\""
+			// 也可以用转义字符在路径前后添加 \""
+			// 终于搞定了，应为路径带空格，需要启动特殊的环境
+			cd := exec.Command("rundll32.exe", "url.dll,FileProtocolHandler", vpnpath)
+			err := cd.Run()
+			fmt.Println(err)
 
 			if err != nil {
-				fmt.Println("启动失败")
+				msg.Dialog("启动vpn失败，请联系管理员", mywin)
+
 			}
 		}
 
@@ -195,7 +206,7 @@ func main() {
 
 	container1 := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3, clear1, clear2, clear3, libup1, libup2, libup3, libimg1, libimg2, libimg3, pingtest, pingtest1, pingtest2)
 	mywin.SetContent(container1)
-	mywin.Resize(fyne.NewSize(400, 800))
+	mywin.Resize(fyne.NewSize(270, 630))
 
 	// 释放字体
 	os.Unsetenv("FYNE_FONT")
