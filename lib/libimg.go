@@ -17,7 +17,7 @@ func LibImg() (testing string, err error) {
 
 	resp, err := http.Get(url)
 
-	if resp!=nil {
+	if resp != nil {
 
 		defer resp.Body.Close()
 
@@ -27,7 +27,6 @@ func LibImg() (testing string, err error) {
 		}
 		// resp.Body.Close()
 
-
 		fie, err := os.Create("D:/omvscode/gocode_cli/二维码.png")
 		if err != nil {
 			fmt.Println("创建失败")
@@ -36,7 +35,7 @@ func LibImg() (testing string, err error) {
 		io.Copy(fie, bytes.NewReader(body))
 		defer fie.Close()
 
-		if resp!=nil {
+		if resp != nil {
 
 			defer resp.Body.Close()
 		} else {
@@ -55,5 +54,5 @@ func LibImg() (testing string, err error) {
 		fmt.Println("请求失败")
 	}
 
-	return "下载失败",nil
+	return "下载失败", nil
 }

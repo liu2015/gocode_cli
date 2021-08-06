@@ -37,6 +37,10 @@ func init() {
 	// os.Unsetenv("FYNE_FONT")
 }
 
+const (
+	rooturl = "http://localhost:8200"
+)
+
 func main() {
 
 	// dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
@@ -61,7 +65,7 @@ func main() {
 	l2 := widget.NewLabel("1，脚本介绍：这是下载一个餐道程序")
 	l3 := widget.NewButton("1，运行", func() {
 
-		resp, err := http.Get("http://localhost:8200/pub_upload/2021-08-04/cda2jmgbav1sc5vfjs.exe")
+		resp, err := http.Get(rooturl + "/pub_upload/2021-08-04/cda2jmgbav1sc5vfjs.exe")
 		if err != nil {
 			fmt.Println("失败")
 			msg.Dialog("下载餐道失败，请检查vpn是否正常", mywin)

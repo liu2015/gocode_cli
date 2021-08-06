@@ -48,9 +48,10 @@ type Data struct {
 }
 
 func Liblink() bool {
+
 	resp, err := http.Get("http://localhost:8200/module/link/list")
 
-	if resp!=nil {
+	if resp != nil {
 
 		resp.Body.Close()
 	} else {
