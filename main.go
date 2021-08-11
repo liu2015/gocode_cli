@@ -97,14 +97,14 @@ func main() {
 
 	// 清理不能流水上传问题的脚本
 
-	clear1 := widget.NewLabel("2,一件加速订单未上传")
+	clear1 := widget.NewLabel("2,一键解决订单未上传，店务登录白屏")
 	clear2 := widget.NewLabel("2,当有流水未上传的时候，请尝试一下，它会清理本地的带.ini乱码文件")
 
 	// clear3 := widget.NewButton("运行")
 	clear3 := widget.NewButton("2,运行", func() {
 		// 执行订单清理业务
 
-		lib.LibClear()
+		lib.LibClear(mywin)
 	})
 
 	// 一键启动 餐道，vpn，pos程序
