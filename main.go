@@ -188,6 +188,25 @@ func main() {
 
 	})
 
+	// 下载远程程序
+	pingtest12 := widget.NewLabel("5,下载远程程序TeamViewer.exe 12版本")
+	pingtest112 := widget.NewLabel("5,  1，此程序将启动teamviewer12 若是没有启动将下载并启动")
+	team12 := widget.NewButton("5,运行程序", func() {
+		// 启动下载程序的方法
+		lib.Team12()
+
+		// 重新运行teamviewer
+		dirtest := "D:/omvscode/gocode_cli/teamviewer/TeamViewer.exe"
+		cmd := exec.Command(dirtest)
+		err := cmd.Run()
+
+		fmt.Println(err)
+
+		if err != nil {
+			fmt.Println("运行不成功")
+		}
+	})
+
 	// // 弹窗提醒是否需要更新
 	// // 检测是不是有更新版本
 	// ifboot := libupdate.LibUpdate()
@@ -208,7 +227,7 @@ func main() {
 		msg.Dialog("你是最新更新，不需要更新", mywin)
 	}
 
-	container1 := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3, clear1, clear2, clear3, libup1, libup2, libup3, libimg1, libimg2, libimg3, pingtest, pingtest1, pingtest2)
+	container1 := fyne.NewContainerWithLayout(layout.NewVBoxLayout(), l1, l2, l3, clear1, clear2, clear3, libup1, libup2, libup3, libimg1, libimg2, libimg3, pingtest, pingtest1, pingtest2, pingtest12, pingtest112, team12)
 	mywin.SetContent(container1)
 	mywin.Resize(fyne.NewSize(270, 630))
 

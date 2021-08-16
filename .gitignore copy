@@ -20,6 +20,4 @@ main
 *.exe
 tmp
 public/resource/pub_upload/
-*.syso
-
 teamviewer
