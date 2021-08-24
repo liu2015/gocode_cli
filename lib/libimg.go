@@ -13,7 +13,7 @@ func LibImg() (testing string, err error) {
 
 	fmt.Println("运行并打开图片")
 
-	url := "http://localhost:8200/pub_upload/2021-08-04/cdaellx3015w9zua7p.png"
+	url := "http://172.30.10.106:8200/pub_upload/2021-08-04/cdaellx3015w9zua7p.png"
 
 	resp, err := http.Get(url)
 

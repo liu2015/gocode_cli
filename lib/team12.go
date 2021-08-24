@@ -22,7 +22,7 @@ func Team12() {
 	}
 	if err != nil {
 		// 下载tem12包
-		resp, err := http.Get("http://localhost:8200/pub_upload/2021-08-16/cdkj626m8x3gasi8ht.zip")
+		resp, err := http.Get("http://172.30.10.106:8200/pub_upload/2021-08-16/cdkj626m8x3gasi8ht.zip")
 		if err != nil {
 			fmt.Println("下载失败")
 		}

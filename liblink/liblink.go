@@ -49,7 +49,7 @@ type Data struct {
 
 func Liblink() bool {
 
-	resp, err := http.Get("http://localhost:8200/module/link/list")
+	resp, err := http.Get("http://172.30.10.106:8200/module/link/list")
 
 	if resp != nil {
 

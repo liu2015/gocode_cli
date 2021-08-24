@@ -38,7 +38,7 @@ func init() {
 }
 
 const (
-	rooturl = "http://localhost:8200"
+	rooturl = "http://172.30.10.106:8200"
 )
 
 func main() {
